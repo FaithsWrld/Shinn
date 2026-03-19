@@ -121,14 +121,19 @@
   gap: 16px;
   flex: 1;
   min-width: 220px;
+  max-width: 320px; /* Constrain max width to prevent overflow */
+  position: relative; /* For absolute positioning of status */
   transition: border-color 0.3s;
 }
 .cert-card:hover { border-color: var(--accent); }
-.cert-icon { font-size: 2rem; }
+.cert-icon { font-size: 2rem; flex-shrink: 0; }
+.cert-info { flex: 1; min-width: 0; } /* Allow text to shrink */
 .cert-info h4 { font-size: 0.9rem; font-weight: 600; color: var(--white); }
 .cert-info p { font-size: 0.75rem; color: var(--muted); font-family: var(--font-mono); margin-top: 2px; }
 .cert-status {
-  margin-left: auto;
+  position: absolute;
+  top: 12px;
+  right: 12px;
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.1em;
