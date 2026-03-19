@@ -71,7 +71,7 @@ img { max-width: 100%; display: block; }
   z-index: 9999;
   transition: width 0.2s ease, height 0.2s ease;
   /* mix-blend-mode: difference; */
-  display: none; /* Hidden by default, shown via JS on desktop */
+  display: none; /* Hidden by default */
 }
 
 .cursor-trail {
@@ -84,7 +84,14 @@ img { max-width: 100%; display: block; }
   z-index: 9998;
   transition: width 0.2s ease, height 0.2s ease;
   /* mix-blend-mode: difference; */
-  display: none; /* Hidden by default, shown via JS on desktop */
+  display: none; /* Hidden by default */
+}
+
+/* Show cursor only on desktop screens */
+@media (min-width: 1024px) and (pointer: fine) {
+  .cursor, .cursor-trail {
+    display: block !important;
+  }
 }
 
 /* ── NAV ───────────────────────────────────────────────────────────────────── */

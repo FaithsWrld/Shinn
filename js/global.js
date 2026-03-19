@@ -7,9 +7,8 @@ const isTouchDevice = ('ontouchstart' in window) ||
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
 
-// Show cursor only on non-touch devices (desktop)
-if (!isTouchDevice && cursor) cursor.style.display = 'block';
-if (!isTouchDevice && trail) trail.style.display = 'block';
+// Note: Cursor visibility is now handled by CSS media queries
+// @media (min-width: 1024px) and (pointer: fine) shows cursor on desktop
 
 // ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
@@ -36,8 +35,8 @@ document.addEventListener('click', (e) => {
 
 let mx = 0, my = 0, tx = 0, ty = 0;
 
-// Only track mouse movement on non-touch devices
-if (!isTouchDevice) {
+// Only track mouse movement if cursor is visible (desktop)
+if (cursor && getComputedStyle(cursor).display !== 'none') {
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX; my = e.clientY;
     if (cursor) { cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; }
@@ -52,8 +51,8 @@ if (!isTouchDevice) {
   animateTrail();
 }
 
-// Scale cursor on hover (only on non-touch devices)
-if (!isTouchDevice) {
+// Scale cursor on hover (only if cursor is visible)
+if (cursor && getComputedStyle(cursor).display !== 'none') {
   document.querySelectorAll('a, button, .qcard, .card, .skill-category, .cert-card, .creative-card, .contact-link').forEach(el => {
     el.addEventListener('mouseenter', () => {
       if (cursor) { cursor.style.width = '20px'; cursor.style.height = '20px'; }
