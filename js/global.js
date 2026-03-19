@@ -1,3 +1,7 @@
+// ── CURSOR ELEMENTS ──────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+
 // ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
   // Don't create ripple on buttons, links, or interactive elements
