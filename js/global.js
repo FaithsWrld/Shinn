@@ -1,6 +1,25 @@
-// ── CUSTOM CURSOR ──────────────────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-const trail  = document.getElementById('cursorTrail');
+// ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
+document.addEventListener('click', (e) => {
+  // Don't create ripple on buttons, links, or interactive elements
+  const interactiveElements = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT'];
+  if (interactiveElements.includes(e.target.tagName) || e.target.closest('a, button, input, textarea, select')) {
+    return;
+  }
+
+  // Create ripple element
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple-effect';
+  ripple.style.left = (e.clientX - 25) + 'px';
+  ripple.style.top = (e.clientY - 25) + 'px';
+
+  // Add to body and remove after animation
+  document.body.appendChild(ripple);
+  setTimeout(() => {
+    if (ripple.parentNode) {
+      ripple.parentNode.removeChild(ripple);
+    }
+  }, 600);
+});
 
 let mx = 0, my = 0, tx = 0, ty = 0;
 
