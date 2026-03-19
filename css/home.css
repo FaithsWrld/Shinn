@@ -226,4 +226,17 @@
   .hero { padding: calc(var(--nav-h) + 24px) 24px 40px; }
   .quick-cards { grid-template-columns: 1fr; }
   .qcard { border-right: none; }
+
+  /* Better mobile hero spacing */
+  .hero-title { margin-bottom: 20px; }
+  .hero-tag { margin-bottom: 16px; font-size: 0.65rem; }
+
+  /* Improve stats layout on mobile */
+  .hero-stats { margin-top: 32px; gap: 24px; }
+  .stat { text-align: center; }
+  .stat-value { font-size: 2rem; }
+  .stat-label { font-size: 0.75rem; }
+
+  /* Better card spacing */
+  .qcard { padding: 24px 20px; margin-bottom: 16px; }
 }

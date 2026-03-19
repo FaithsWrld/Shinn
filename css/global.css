@@ -245,4 +245,18 @@ img { max-width: 100%; display: block; }
   .nav { padding: 0 24px; }
   .page-header { padding: calc(var(--nav-h) + 40px) 24px 32px; }
   .footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+
+  /* Disable custom cursor on mobile */
+  .cursor, .cursor-trail { display: none !important; }
+  body { cursor: auto !important; }
+
+  /* Improve touch targets */
+  .btn { min-height: 44px; padding: 14px 24px; font-size: 0.8rem; }
+  .qcard { min-height: 120px; padding: 20px; }
+
+  /* Better mobile typography */
+  body { font-size: 15px; line-height: 1.5; }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.4rem; }
 }
