@@ -1,14 +1,10 @@
-// ── DEVICE DETECTION ─────────────────────────────────────────────────────────
-const isTouchDevice = ('ontouchstart' in window) ||
-                     (navigator.maxTouchPoints > 0) ||
-                     (window.innerWidth <= 768); // Fallback for smaller screens
-
 // ── CURSOR ELEMENTS ──────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
 
-// Note: Cursor visibility is now handled by CSS media queries
-// @media (min-width: 1024px) and (pointer: fine) shows cursor on desktop
+// Note: Cursor visibility is now handled by CSS media queries:
+// - Visible by default on desktop
+// - Hidden on @media (hover: none), (pointer: coarse), (max-width: 1024px)
 
 // ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
@@ -35,7 +31,7 @@ document.addEventListener('click', (e) => {
 
 let mx = 0, my = 0, tx = 0, ty = 0;
 
-// Only track mouse movement if cursor is visible (desktop)
+// Only track mouse movement if cursor is visible (not hidden by CSS media queries)
 if (cursor && getComputedStyle(cursor).display !== 'none') {
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX; my = e.clientY;
