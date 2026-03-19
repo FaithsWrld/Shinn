@@ -1,6 +1,13 @@
+// ── DEVICE DETECTION ─────────────────────────────────────────────────────────
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
 // ── CURSOR ELEMENTS ──────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
+
+// Hide cursor on touch devices
+if (isTouchDevice && cursor) cursor.style.display = 'none';
+if (isTouchDevice && trail) trail.style.display = 'none';
 
 // ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
@@ -27,30 +34,35 @@ document.addEventListener('click', (e) => {
 
 let mx = 0, my = 0, tx = 0, ty = 0;
 
-document.addEventListener('mousemove', (e) => {
-  mx = e.clientX; my = e.clientY;
-  if (cursor) { cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; }
-});
+// Only track mouse movement on non-touch devices
+if (!isTouchDevice) {
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    if (cursor) { cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; }
+  });
 
-function animateTrail() {
-  tx += (mx - tx) * 0.13;
-  ty += (my - ty) * 0.13;
-  if (trail) { trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; }
-  requestAnimationFrame(animateTrail);
+  function animateTrail() {
+    tx += (mx - tx) * 0.13;
+    ty += (my - ty) * 0.13;
+    if (trail) { trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; }
+    requestAnimationFrame(animateTrail);
+  }
+  animateTrail();
 }
-animateTrail();
 
-// Scale cursor on hover
-document.querySelectorAll('a, button, .qcard, .card, .skill-category, .cert-card, .creative-card, .contact-link').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    if (cursor) { cursor.style.width = '20px'; cursor.style.height = '20px'; }
-    if (trail)  { trail.style.width = '56px'; trail.style.height = '56px'; }
+// Scale cursor on hover (only on non-touch devices)
+if (!isTouchDevice) {
+  document.querySelectorAll('a, button, .qcard, .card, .skill-category, .cert-card, .creative-card, .contact-link').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      if (cursor) { cursor.style.width = '20px'; cursor.style.height = '20px'; }
+      if (trail)  { trail.style.width = '56px'; trail.style.height = '56px'; }
+    });
+    el.addEventListener('mouseleave', () => {
+      if (cursor) { cursor.style.width = '10px'; cursor.style.height = '10px'; }
+      if (trail)  { trail.style.width = '36px'; trail.style.height = '36px'; }
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    if (cursor) { cursor.style.width = '10px'; cursor.style.height = '10px'; }
-    if (trail)  { trail.style.width = '36px'; trail.style.height = '36px'; }
-  });
-});
+}
 
 // ── MOBILE NAV ──────────────────────────────────────────────────────────────
 const burger = document.getElementById('burger');
