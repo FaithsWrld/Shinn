@@ -1,13 +1,15 @@
 // ── DEVICE DETECTION ─────────────────────────────────────────────────────────
-const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+const isTouchDevice = ('ontouchstart' in window) ||
+                     (navigator.maxTouchPoints > 0) ||
+                     (window.innerWidth <= 768); // Fallback for smaller screens
 
 // ── CURSOR ELEMENTS ──────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
 
-// Hide cursor on touch devices
-if (isTouchDevice && cursor) cursor.style.display = 'none';
-if (isTouchDevice && trail) trail.style.display = 'none';
+// Show cursor only on non-touch devices (desktop)
+if (!isTouchDevice && cursor) cursor.style.display = 'block';
+if (!isTouchDevice && trail) trail.style.display = 'block';
 
 // ── RIPPLE EFFECT ──────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
