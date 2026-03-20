@@ -21,7 +21,7 @@ const statsObserver = new IntersectionObserver((entries) => {
       statsObserver.unobserve(el);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 
 statNums.forEach(el => statsObserver.observe(el));
 
